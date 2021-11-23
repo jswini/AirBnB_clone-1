@@ -2,8 +2,8 @@
 """ Console Module """
 import cmd
 import sys
+import models
 from models.base_model import BaseModel
-from models.__init__ import storage
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -116,13 +116,14 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """ Create an object of any class"""
         show_split = args.split()
+        currentObj = show_split[0]
         if not args:
             print("** class name missing **")
             return
-        elif show_split[0] not in HBNBCommand.classes:
+        elif currentObj not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[show_split[0]]()
+        new_instance = HBNBCommand.classes[currentObj]()
         #Check arguments
         for i in range(1, len(show_split)):
             #Set Key
@@ -131,20 +132,16 @@ class HBNBCommand(cmd.Cmd):
             #Test Pair type
             key_type = type(getattr(new_instance, key))
             #Set Pair value
-            try:
-                if key_type == float:
-                    value = float(pair[1])
-                elif key_type == int:
-                    value = int(float(pair[1]))
-                elif key_type == str:
-                    value = pair[1].replace('_', ' ').replace('\"', '')
-            except:
-                pass
+            if key_type == float:
+                value = float(pair[1])
+            elif key_type == int:
+                value = int(float(pair[1]))
+            else:
+                value = pair[1].replace('_', ' ').replace('\"', '')
             #Set attribute
             setattr(new_instance, key, value)
-        storage.save()
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -175,7 +172,7 @@ class HBNBCommand(cmd.Cmd):
 
         key = c_name + "." + c_id
         try:
-            print(storage._FileStorage__objects[key])
+            print(models.storage._FileStorage__objects[key])
         except KeyError:
             print("** no instance found **")
 
@@ -207,8 +204,8 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
-            storage.save()
+            del(models.storage.all()[key])
+            models.storage.save()
         except KeyError:
             print("** no instance found **")
 
@@ -226,11 +223,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in models.storage.all().items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in models.storage.all():
                 print_list.append(str(v))
 
         print(print_list)
@@ -243,7 +240,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, args):
         """Count current number of class instances"""
         count = 0
-        for k, v in storage._FileStorage__objects.items():
+        for k, v in models.storage._FileStorage__objects.items():
             if args == k.split('.')[0]:
                 count += 1
         print(count)
@@ -279,7 +276,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         # determine if key is present
-        if key not in storage.all():
+        if key not in models.storage.all():
             print("** no instance found **")
             return
 
@@ -313,7 +310,7 @@ class HBNBCommand(cmd.Cmd):
             args = [att_name, att_val]
 
         # retrieve dictionary of current objects
-        new_dict = storage.all()[key]
+        new_dict = models.storage.all()[key]
 
         # iterate through attr names and values
         for i, att_name in enumerate(args):
