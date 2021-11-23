@@ -5,8 +5,8 @@ from sqlalchemy import Column, String
 from sqlalchemy import ForeignKey
 
 
-class Amenity(BaseModel):
+class Amenity(BaseModel, Base):
     '''gives the amenities available for a place'''
     __tablename__ = "amenities"
     name = Column(String(128), nullable=False)
-    place_amenities = Column('''stuff goes in here for relationships''')
+    #place_amenities = Column('''stuff goes in here for relationships''')

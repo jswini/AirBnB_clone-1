@@ -15,7 +15,7 @@ classes = {
             'Review': Review
             }
 '''
-classes = [State, City]
+classes = [State, City, User, Place, Review, Amenity]
 
 class DBStorage:
     __engine = None
@@ -43,7 +43,6 @@ class DBStorage:
         else:
             for object in self.__session.query(cls):
                 newDict.update({type(object).__name__ + "." + object.id: object})
-        #print(newDict)
         return newDict
 
     def new(self, obj):
