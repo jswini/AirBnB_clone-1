@@ -227,7 +227,7 @@ class HBNBCommand(cmd.Cmd):
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in models.storage.all():
+            for k, v in models.storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)

@@ -15,7 +15,7 @@ classes = {
             'Review': Review
             }
 '''
-classes = {'State': State, 'City': City}
+classes = [State, City]
 
 class DBStorage:
     __engine = None
@@ -37,16 +37,18 @@ class DBStorage:
         #return dict {cls.ID: <object>}
         newDict = {}
         if cls == None:
-            for object in self.__session.query(State):
-                newDict.update({type(object).__name__ + "." + object.id: object})
+            for class_list in classes:
+                for object in self.__session.query(class_list):
+                    newDict.update({type(object).__name__ + "." + object.id: object})
         else:
             for object in self.__session.query(cls):
                 newDict.update({type(object).__name__ + "." + object.id: object})
+        #print(newDict)
         return newDict
 
     def new(self, obj):
         self.__session.add(obj)
-    
+
     def save(self):
         self.__session.commit()
 
