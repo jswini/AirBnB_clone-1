@@ -14,3 +14,4 @@ except KeyError:
     print("environment variable HBNB_TYPE_STORAGE failed")
 except Exception as ex:
     print("error in init with import or DBstorage")
+    print(ex.args)
