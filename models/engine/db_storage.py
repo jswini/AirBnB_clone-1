@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from os import environ
-from sqlalchemy.orm import session, sessionmaker, scoped_session
+from sqlalchemy.orm import backref, relationship, session, sessionmaker, scoped_session
 from models.base_model import Base
 from models.user import User
 from models.state import State
@@ -41,6 +41,7 @@ class DBStorage:
                 for object in self.__session.query(class_list):
                     newDict.update({type(object).__name__ + "." + object.id: object})
         else:
+            print("About to query: {}".format(cls))
             for object in self.__session.query(cls):
                 newDict.update({type(object).__name__ + "." + object.id: object})
         return newDict
