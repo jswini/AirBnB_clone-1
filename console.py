@@ -124,21 +124,21 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[currentObj]()
-        #Check arguments
+        # Check arguments
         for i in range(1, len(show_split)):
-            #Set Key
+            # Set Key
             pair = show_split[i].split('=')
             key = pair[0]
-            #Test Pair type
+            # Test Pair type
             key_type = type(getattr(new_instance, key))
-            #Set Pair value
+            # Set Pair value
             if key_type == float:
                 value = float(pair[1])
             elif key_type == int:
                 value = int(float(pair[1]))
             else:
                 value = pair[1].replace('_', ' ').replace('\"', '')
-            #Set attribute
+            # Set attribute
             setattr(new_instance, key, value)
         new_instance.save()
         print(new_instance.id)
@@ -336,6 +336,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
