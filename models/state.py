@@ -20,7 +20,7 @@ try:
 except Exception as ex:
     @property
     def cities(self):
-        '''getter for cities'''
+        """getter for cities"""
         cities_list = models.storage.all(type(City))
         matching_cities = []
         for i in cities_list:
