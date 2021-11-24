@@ -57,4 +57,5 @@ class FileStorage:
             pass
 
     def delete(self, obj):
+        '''this method deletes an entry'''
         self.__objects.pop(type(obj).__name__ + "." + str(obj.id))
