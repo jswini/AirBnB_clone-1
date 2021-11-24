@@ -19,10 +19,6 @@ class FileStorage:
                     new_dict.update({key: val})
             return new_dict
 
-    def delete(self, obj=None):
-        """this method deletes an entry"""
-        self.__objects.pop(type(obj).__name__ + "." + str(obj.id))
-
     def new(self, obj):
         """Adds new object to storage dictionary"""
         self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
@@ -59,3 +55,7 @@ class FileStorage:
                     self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+
+    def delete(self, obj=None):
+        """This method deletes an entry"""
+        self.__objects.pop(type(obj).__name__ + "." + str(obj.id))
