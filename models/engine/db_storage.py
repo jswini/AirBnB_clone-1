@@ -41,7 +41,6 @@ class DBStorage:
                 for object in self.__session.query(class_list):
                     newDict.update({type(object).__name__ + "." + object.id: object})
         else:
-            print("About to query: {}".format(cls))
             for object in self.__session.query(cls):
                 newDict.update({type(object).__name__ + "." + object.id: object})
         return newDict

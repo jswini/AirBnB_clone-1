@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
+from os import environ
 from sqlalchemy.sql.expression import table
 import models
 from models.base_model import BaseModel, Base
@@ -27,28 +28,30 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
-    reviews = relationship("Review", backref="place")
-    amenities = relationship("Ameniety", secondary="place_amenity", viewonly=False)
+    if environ['HBNB_TYPE_STORAGE'] == "db":
+        reviews = relationship("Review", backref="place")
+        amenities = relationship("Amenity", secondary="place_amenity", viewonly=False)
 
-    @property
-    def reviews(self):
-        reviews_list = models.storage.all(type(Review))
-        matching_reviews = []
-        for i in reviews_list:
-            if reviews_list.get(i).place_id == self.id:
-                matching_reviews.append(reviews_list.get(i))
-        return matching_reviews
+    if environ['HBNB_TYPE_STORAGE'] == "file":
+        @property
+        def reviews(self):
+            reviews_list = models.storage.all(type(Review))
+            matching_reviews = []
+            for i in reviews_list:
+                if reviews_list.get(i).place_id == self.id:
+                    matching_reviews.append(reviews_list.get(i))
+            return matching_reviews
     
-    @property
-    def amenities(self):
-        amenities_list = models.storage.all(type(Amenity))
-        matching_amenities = []
-        for i in amenities_list:
-            if amenities_list.get(i).id in self.amenity_ids:
-                matching_amenities.append(amenities_list.get(i))
-        return matching_amenities
-    
-    @amenities.setter  
-    def size(self, amenity):  
-	    if isinstance(amenity, Amenity):
-                self.amenity_ids.append(amenity.id)
+        @property
+        def amenities(self):
+            amenities_list = models.storage.all(Amenity)
+            matching_amenities = []
+            for i in amenities_list:
+                if amenities_list.get(i).id in self.amenity_ids:
+                    matching_amenities.append(amenities_list.get(i))
+            return matching_amenities
+        
+        @amenities.setter  
+        def size(self, amenity):  
+            if isinstance(amenity, Amenity):
+                    self.amenity_ids.append(amenity.id)
