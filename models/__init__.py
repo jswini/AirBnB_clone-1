@@ -9,9 +9,13 @@ try:
     else:
         from models.engine.file_storage import FileStorage
         storage = FileStorage()
-    storage.reload()
 except KeyError:
-    print("environment variable HBNB_TYPE_STORAGE failed")
+    from models.engine.file_storage import FileStorage
+    storage = FileStorage()
+# except KeyError:
+#     print("environment variable HBNB_TYPE_STORAGE failed")
 except Exception as ex:
     print("error in init with import or DBstorage")
     print(ex.args)
+finally:
+    storage.reload()

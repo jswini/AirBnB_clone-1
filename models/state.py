@@ -14,10 +14,10 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
 
 
-if environ['HBNB_TYPE_STORAGE'] == "db":
-    cities = relationship("City", back_populates="state")
-
-if environ['HBNB_TYPE_STORAGE'] == "file":
+try:
+    if environ['HBNB_TYPE_STORAGE'] == "db":
+        cities = relationship("City", back_populates="state")
+except Exception as ex:
     @property
     def cities(self):
         '''getter for cities'''
