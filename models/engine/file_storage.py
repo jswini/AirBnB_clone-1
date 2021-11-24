@@ -58,4 +58,5 @@ class FileStorage:
 
     def delete(self, obj=None):
         """This method deletes an entry"""
-        self.__objects.pop(type(obj).__name__ + "." + str(obj.id))
+        if obj:
+            self.__objects.pop(type(obj).__name__ + "." + str(obj.id))
