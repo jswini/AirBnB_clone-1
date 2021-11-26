@@ -126,20 +126,23 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[currentObj]()
         # Check arguments
         for i in range(1, len(show_split)):
-            # Set Key
-            pair = show_split[i].split('=')
-            key = pair[0]
-            # Test Pair type
-            key_type = type(getattr(new_instance, key))
-            # Set Pair value
-            if key_type == float:
-                value = float(pair[1])
-            elif key_type == int:
-                value = int(float(pair[1]))
-            else:
-                value = pair[1].replace('_', ' ').replace('\"', '')
-            # Set attribute
-            setattr(new_instance, key, value)
+            try:
+                # Set Key
+                pair = show_split[i].split('=')
+                key = pair[0]
+                # Test Pair type
+                key_type = type(getattr(new_instance, key))
+                # Set Pair value
+                if key_type == float:
+                    value = float(pair[1])
+                elif key_type == int:
+                    value = int(float(pair[1]))
+                else:
+                    value = pair[1].replace('_', ' ').replace('\"', '')
+                # Set attribute
+                setattr(new_instance, key, value)
+            except Exception:
+                pass
         new_instance.save()
         print(new_instance.id)
 
