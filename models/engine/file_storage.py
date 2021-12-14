@@ -60,3 +60,9 @@ class FileStorage:
         """This method deletes an entry"""
         if obj:
             self.__objects.pop(type(obj).__name__ + "." + str(obj.id))
+
+    def close(self):
+        '''
+        This method deserializes a json
+        '''
+        self.reload()
