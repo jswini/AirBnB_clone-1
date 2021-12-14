@@ -21,7 +21,7 @@ except Exception as ex:
     @property
     def cities(self):
         """getter for cities"""
-        cities_list = models.storage.all(type(City))
+        cities_list = models.storage.all(City)
         matching_cities = []
         for i in cities_list:
             if cities_list.get(i).state_id == self.id:
