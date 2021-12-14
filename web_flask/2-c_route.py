@@ -23,7 +23,7 @@ def HBNB():
 @app.route('/c/<text>')
 def c_text(text):
     '''this method prints the text from the var passed'''
-    return 'c %s' % text
+    return 'C %s' % text
 
 
 if __name__ == '__main__':
