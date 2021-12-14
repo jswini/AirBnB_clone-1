@@ -23,6 +23,7 @@ def HBNB():
 @app.route('/c/<text>')
 def c_text(text):
     '''this method prints the text from the var passed'''
+    strict_slashes = False
     return 'C %s' % text
 
 
