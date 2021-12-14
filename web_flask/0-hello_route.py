@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-from flask import Flask
-app = Flask(__name__)
 '''
 this script creates a page to return hello hbnb
 '''
+from flask import Flask
+app = Flask(__name__)
 
 
 @app.route('/')
