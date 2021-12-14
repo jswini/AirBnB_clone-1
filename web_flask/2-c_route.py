@@ -24,10 +24,11 @@ def HBNB():
 def c_text(text):
     '''this method prints the text from the var passed'''
     strict_slashes = False
+    text = text.replace("_", " ")
     return 'C %s' % text
 
 
 if __name__ == '__main__':
     '''this method sets everything to work on 0.0.0.0'''
     app.debug = True
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", port=5000)
