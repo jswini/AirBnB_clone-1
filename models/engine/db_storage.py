@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from sqlalchemy import create_engine
 from os import environ
 from sqlalchemy.orm import backref, relationship, session, sessionmaker
@@ -78,3 +79,9 @@ class DBStorage:
                                       expire_on_commit=False)
         SessionObj = scoped_session(sessionFactory)
         self.__session = SessionObj()
+
+    def close(self):
+        '''
+        calls the remove method
+        '''
+        self.__session.remove()
