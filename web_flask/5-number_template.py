@@ -49,7 +49,7 @@ def number_text(n):
 @app.route('/number_template/<int:n>')
 def number_html(n=None):
     '''this method displays a website from a template'''
-    strict_slashes = False
+    #strict_slashes = False
     return render_template('5-number.html', n=n)
 
 
