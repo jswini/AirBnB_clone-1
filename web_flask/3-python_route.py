@@ -39,7 +39,7 @@ def python_text(text='is cool', strict_slashes=False):
     This route creates a text response for statements about the python language
     '''
     new_text = text.replace('_', ' ')
-    return 'python {}'.format(new_text)
+    return 'Python {}'.format(new_text)
 
 
 if __name__ == "__main__":
