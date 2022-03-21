@@ -28,7 +28,7 @@ def c_text(text):
     This route creates a text response for statements about the c language
     '''
     new_text = text.replace('_', ' ')
-    return 'c {}'.format(new_text)
+    return 'C {}'.format(new_text)
 
 
 if __name__ == "__main__":
