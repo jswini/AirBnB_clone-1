@@ -52,7 +52,8 @@ def is_a_number(n, strict_slashes=False):
 @app.route('/number_template/<int:n>')
 def number_template_check(n, strict_slashes=False):
     '''
-    This returns the HTML code for the template referenced, passing the variable n
+    This returns the HTML code for the template referenced.
+    passing the variable n
     '''
     return render_template('5-number.html', n=n)
 
