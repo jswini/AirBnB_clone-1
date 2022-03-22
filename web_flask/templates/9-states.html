@@ -4,19 +4,20 @@
         <TITLE>HBNB</TITLE>
     </HEAD>
     <BODY>
-        <H1>States</H1>
         {% if State != None %}
+        <H1>States</H1>
         <UL>
             {% for State in State.values()|sort(attribute="name") %}
-            <LI>{{ State.id  }}<B>{{ State.name }}</B></LI>
+            <LI>{{ State.id  }}: <B>{{ State.name }}</B></LI>
             {% endfor %}
         </UL>
         {% elif search_state != None %}
         <UL>
-            <LI>{{ search_state.id  }}<B>{{ search_state.name }}</B>
+            <H1>State: {{ search_state.name }}</H1>
+            <H3>Cities:</H3>
             <UL>
                     {%- for City in search_state.cities|sort(attribute="name") %}
-                    <LI>{{ City.id }}<B>{{ City.name }}</B></LI>
+                    <LI>{{ City.id }}: <B>{{ City.name }}</B></LI>
                     {%- endfor %}
             </UL>
         </LI>
